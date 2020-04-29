@@ -20,16 +20,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SecondActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.CALL" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".ThirdActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -40,4 +30,6 @@
             </intent-filter>
         </activity>
     </application>
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 </manifest>

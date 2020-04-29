@@ -1,11 +1,17 @@
 package com.example.cm_hw1;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
@@ -22,7 +28,6 @@ public class FirtActivity extends AppCompatActivity {
     Button btn1, btn2, btn3;
 
 
-    public static final String EXTRA_MESSAGE = "com.example.cm_hw1.CALL";
     public static final String EXTRA_MESSAGE2 = "com.example.cm_hw1.ADD";
 
     @Override
@@ -60,9 +65,7 @@ public class FirtActivity extends AppCompatActivity {
                             // call using speed dial
                             .setPositiveButton("Call", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(FirtActivity.this, SecondActivity.class);
-                                    intent.putExtra(EXTRA_MESSAGE, s1+ ","  + s2);
-                                    startActivity(intent);
+                                    dialPhoneNumber(s1);
                                 }
                             })
                             // remove speed dial
@@ -95,16 +98,13 @@ public class FirtActivity extends AppCompatActivity {
             @Override
             public boolean onLongClick(View v) {
                 final String s1 = sharedPreferences.getString("number2number", "");
-                final String s2 = sharedPreferences.getString("number2name", "");
                 if (s1.length() > 0) {
                     new AlertDialog.Builder(FirtActivity.this)
                             .setTitle("SpeedDial")
                             // call using speed dial
                             .setPositiveButton("Call", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(FirtActivity.this, SecondActivity.class);
-                                    intent.putExtra(EXTRA_MESSAGE, s1+ ","  + s2);
-                                    startActivity(intent);
+                                    dialPhoneNumber(s1);
                                 }
                             })
                             // remove speed dial
@@ -144,9 +144,7 @@ public class FirtActivity extends AppCompatActivity {
                             // call using speed dial
                             .setPositiveButton("Call", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(FirtActivity.this, SecondActivity.class);
-                                    intent.putExtra(EXTRA_MESSAGE, s1 + ","  + s2);
-                                    startActivity(intent);
+                                    dialPhoneNumber(s1);
                                 }
                             })
                             // remove speed dial
@@ -219,10 +217,7 @@ public class FirtActivity extends AppCompatActivity {
     //call the number
     public void callNumber( View view){
         String text =  (String) phoneNumber.getText();
-        Intent intent = new Intent(FirtActivity.this, SecondActivity.class);
-        intent.putExtra(EXTRA_MESSAGE, text);
-        startActivity(intent);
-
+        dialPhoneNumber(text);
     }
 
 
@@ -258,5 +253,20 @@ public class FirtActivity extends AppCompatActivity {
         }else {
             btn3.setText("3");
         }
+    }
+
+    public void dialPhoneNumber(String phoneNumber) {
+        if (ContextCompat.checkSelfPermission(FirtActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(FirtActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 1);
+        }
+        else
+        {
+            Intent intent = new Intent(Intent.ACTION_CALL);
+            intent.setData(Uri.parse("tel:" + phoneNumber));
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
+        }
+
     }
 }
