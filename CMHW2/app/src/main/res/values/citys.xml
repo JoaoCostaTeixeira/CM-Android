@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <string-array name="city">
+         <item>Aveiro</item>
+         <item>Beja</item>
+         <item>Braga</item>
+         <item>Bragança</item>
+         <item>Castelo Branco</item>
+         <item>Coimbra</item>
+         <item>Évora</item>
+         <item>Faro</item>
+         <item>Guarda</item>
+         <item>Leiria</item>
+         <item>Lisboa</item>
+         <item>Portalegre</item>
+         <item>Porto</item>
+         <item>Santarém</item>
+         <item>Setúbal</item>
+         <item>Lisboa</item>
+         <item>Viana do Castelo</item>
+         <item>Vila Real</item>
+         <item>Viseu</item>
+
+</string-array>
+    <string name= "APIKEU">
+        6fcebaa15d35d3672004b399373a1279
+    </string>
+</resources>
